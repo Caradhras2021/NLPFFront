@@ -11,7 +11,11 @@ function App() {
           Welcome to Caradhras NLPF application
         </p>
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit
+          {' '}
+          <code>src/App.tsx</code>
+          {' '}
+          and save to reload.
         </p>
         <a
           className="App-link"
