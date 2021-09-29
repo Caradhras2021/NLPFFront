@@ -1,18 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import FormSearch from './search/Form';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import { Navigation, About, FormSearch } from './components';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to Caradhras NLPF application
-        </p>
-        <FormSearch />
-      </header>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/about" exact component={() => <About />} />
+          <Route path="/formsearch" exact component={() => <FormSearch />} />
+        </Switch>
+      </Router>
     </div>
   );
 }
