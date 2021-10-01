@@ -43,7 +43,7 @@ function Navigation(props: any) {
                 }`}
               >
                 <Link className="nav-link" to="/formsearch">
-                  Evalution
+                  Evaluation
                 </Link>
               </li>
             </ul>

@@ -1,6 +1,53 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Col, InputGroup, Row } from 'react-bootstrap';
+import { Acquisition, Table, Column } from './Table';
+
+const data: Acquisition[] = [
+  {
+    date: '19 janvier 2020',
+    value: '450 000,00€',
+    address: '17 avenue de Paris',
+    city: 'Villejuif',
+    zip: '94800',
+    surface: '120m²',
+    rooms: '5',
+  },
+  {
+    date: '21 janvier 2020',
+    value: '250 000,00€',
+    address: '24 avenue du Général de Gaulle',
+    city: 'Saint Léonard de Noblat',
+    zip: '87200',
+    surface: '200m²',
+    rooms: '7',
+  },
+];
+
+const columns: Column[] = [
+  {
+    Header: 'Date',
+    accessor: 'date',
+  }, {
+    Header: 'Valeur foncière',
+    accessor: 'value',
+  }, {
+    Header: 'Adresse du bien',
+    accessor: 'address',
+  }, {
+    Header: 'Ville',
+    accessor: 'city',
+  }, {
+    Header: 'Code postal',
+    accessor: 'zip',
+  }, {
+    Header: 'Surface',
+    accessor: 'surface',
+  }, {
+    Header: 'Pièces principales',
+    accessor: 'rooms',
+  },
+];
 
 export const FormSearch = (): JSX.Element => {
   /* eslint-disable */
@@ -104,6 +151,10 @@ export const FormSearch = (): JSX.Element => {
         <Button type="submit">Lancer votre évaluation</Button>
       </Form>
       <br/><h3>3 - Découvrez notre estimation</h3><br/>
+      <Table
+        columns={columns}
+        data={data}
+      />
       <br/><h3>4 - Parcourez les biens similaires</h3><br/>
     </div>);
 
