@@ -1,28 +1,8 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Col, InputGroup, Row } from 'react-bootstrap';
-import { Acquisition, Table, Column } from './Table';
-
-const data: Acquisition[] = [
-  {
-    date: '19 janvier 2020',
-    value: '450 000,00€',
-    address: '17 avenue de Paris',
-    city: 'Villejuif',
-    zip: '94800',
-    surface: '120m²',
-    rooms: '5',
-  },
-  {
-    date: '21 janvier 2020',
-    value: '250 000,00€',
-    address: '24 avenue du Général de Gaulle',
-    city: 'Saint Léonard de Noblat',
-    zip: '87200',
-    surface: '200m²',
-    rooms: '7',
-  },
-];
+import { Table, Column } from './Table';
+import data from './Data';
 
 const columns: Column[] = [
   {

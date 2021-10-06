@@ -9,6 +9,8 @@ export type Acquisition = {
     zip: string,
     surface: string,
     rooms: string,
+    lat: number,
+    lng: number,
 }
 
 export type Column = {
