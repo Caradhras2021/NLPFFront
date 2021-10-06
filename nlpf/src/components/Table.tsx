@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './Table.css';
 
 export type Acquisition = {
@@ -32,6 +34,7 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
           { columns.map((column: any) => (
             <th>{column.Header}</th>
           ))}
+          <th>Carte</th>
         </tr>
       </thead>
       <tbody >
@@ -42,6 +45,13 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
                     {elt[column.accessor as keyof Acquisition]}
                   </td>
                   ))}
+                  <td>
+                    <Link className="nav-link" to={`/map/${elt.lat}/${elt.lng}` }>
+                      <Button type="submit">
+                        Voir
+                      </Button>
+                    </Link>
+                  </td>
               </tr>
           ))}
       </tbody>
