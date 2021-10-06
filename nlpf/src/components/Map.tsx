@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact, { Coords } from 'google-map-react';
+import { useParams } from 'react-router-dom';
 import { Acquisition } from './Table';
 
 /* eslint-disable */
@@ -9,7 +10,11 @@ const mapStyles = {
   height: '100vh',
 };
 
-function CustomMap ({ data }: { data: Acquisition[] }):JSX.Element {
+function CustomMap ({ data }: { data: Acquisition[] }): JSX.Element {
+
+  let { lat, lng }: { lat: string, lng: string} = useParams();
+  let latitude = Number(lat);
+  let longitude = Number(lng);
 
   const renderMarkers = (map: any, maps: any) => {
    data.forEach((elt: Acquisition) => {
@@ -23,7 +28,7 @@ function CustomMap ({ data }: { data: Acquisition[] }):JSX.Element {
    }
   )};
 
-  const center: Coords = { lat: data[0].lat, lng: data[0].lng }
+  const center: Coords = { lat: latitude, lng: longitude }
  
   return (
     <div style={{ height: '85vh', width: '100%' }}>
