@@ -128,14 +128,23 @@ export const FormSearch = (): JSX.Element => {
           />
         </Form.Group>
         <br />
-        <Button type="submit">Lancer votre évaluation</Button>
+        <Button onClick={() => {
+            const div = document.getElementById("result");
+            console.log(div);
+            if (div)
+              div.scrollIntoView();
+        }}>
+        Lancer votre évaluation
+        </Button>
       </Form>
       <br/><h3>3 - Découvrez notre estimation</h3><br/>
+      <h4 id="result">270 000€</h4>
+      <br/><h3>4 - Parcourez les biens similaires</h3><br/>
       <Table
         columns={columns}
         data={data}
       />
-      <br/><h3>4 - Parcourez les biens similaires</h3><br/>
+      <br />
     </div>);
 
   return render;

@@ -37,6 +37,10 @@
   }
 }
 
+hmtl {
+  scroll-behavior: smooth;
+}
+
 .Search {
   max-width: 60%;
   margin-left: 20%;
