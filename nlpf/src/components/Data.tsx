@@ -1,4 +1,5 @@
-import { Acquisition } from './Table';
+import { Acquisition, Transaction } from './Table';
+import axios from 'axios';
 
 const data: Acquisition[] = [
   {
@@ -24,5 +25,41 @@ const data: Acquisition[] = [
     lng: -0.175,
   },
 ];
+
+const test: Transaction = {
+    id_mutation: "",
+    date_mutation: "",
+    valeur_fonciere: "",
+    adresse_numero: "",
+    adresse_nom_voie: "",
+    code_postal: 44800,
+    nom_commune: "",
+    lot1_surface_carrez: "",
+    type_local: "Appartement",
+    nombre_pieces_principales: 4,
+    surface_terrain: "",
+    longitude: "",
+    latitude: ""
+}
+
+export const getTransaction = async (data: Transaction, page: number, pageSize: number) => {
+    try {
+      const resp = await axios.post(`http://127.0.0.1:5000/getTransaction/${page}/${pageSize}`, {
+        data,
+        headers: {
+          'Content-Type': 'CORS_HEADERS'
+        }
+      })
+      console.log(resp)
+      return resp
+
+    } catch(e) {
+      console.error(e)
+    }
+}
+
+const tetest3 = getTransaction(test, 1, 10)
+
+console.log(tetest3)
 
 export default data;

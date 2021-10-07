@@ -15,6 +15,22 @@ export type Acquisition = {
     lng: number,
 }
 
+export type Transaction = {
+  id_mutation: string,
+  date_mutation: string,
+  valeur_fonciere: number | string,
+  adresse_numero: string,
+  adresse_nom_voie: string,
+  code_postal: number | string,
+  nom_commune: string,
+  lot1_surface_carrez: number | string,
+  type_local: string,
+  nombre_pieces_principales: number | string,
+  surface_terrain: number | string,
+  longitude: number | string,
+  latitude: number | string
+}
+
 export type Column = {
     Header: string,
     accessor: string,
@@ -42,7 +58,8 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
               <tr>
                   {columns.map((column: Column) => (
                   <td>
-                    {elt[column.accessor as keyof Acquisition]}
+                    {
+                      elt['address']}
                   </td>
                   ))}
                   <td>
