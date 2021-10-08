@@ -10,13 +10,13 @@ const mapStyles = {
   height: '100vh',
 };
 
-function CustomMap ({ data }: { data: Acquisition[] }): JSX.Element {
+function CustomMap ({ data, elt }: { data: Acquisition[], elt: Acquisition }): JSX.Element {
 
-  let { lat, lng }: { lat: string, lng: string} = useParams();
-  let latitude = Number(lat);
-  let longitude = Number(lng);
+  let latitude = elt.lat;
+  let longitude = elt.lng;
 
   const renderMarkers = (map: any, maps: any) => {
+   if (data)
    data.forEach((elt: Acquisition) => {
     let marker = new maps.Marker({
       position: { lat: elt.lat, lng: elt.lng },
@@ -24,6 +24,7 @@ function CustomMap ({ data }: { data: Acquisition[] }): JSX.Element {
       title: elt.address,
       label: elt.value,
       });
+      console.log(marker)
       return marker;
    }
   )};
@@ -31,7 +32,7 @@ function CustomMap ({ data }: { data: Acquisition[] }): JSX.Element {
   const center: Coords = { lat: latitude, lng: longitude }
  
   return (
-    <div style={{ height: '85vh', width: '100%' }}>
+    <div style={{ height: '75vh', width: '100%' }}>
      <GoogleMapReact
        bootstrapURLKeys={{ key: 'AIzaSyC1zyS-6_FRlCKwMnPPtqj3IYwiJLOJZXE' }}
        defaultCenter={center}

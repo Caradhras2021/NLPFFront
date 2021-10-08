@@ -1,8 +1,8 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Col, InputGroup, Row } from 'react-bootstrap';
-import { Table, Column } from './Table';
-import data from './Data';
+import { Table, Column, Transaction } from './Table';
+import GetAcquisition from './Data';
 
 const columns: Column[] = [
   {
@@ -28,6 +28,22 @@ const columns: Column[] = [
     accessor: 'rooms',
   },
 ];
+
+export const mock: Transaction = {
+  id_mutation: "",
+  date_mutation: "",
+  valeur_fonciere: "",
+  adresse_numero: "",
+  adresse_nom_voie: "",
+  code_postal: 44800,
+  nom_commune: "",
+  lot1_surface_carrez: "",
+  type_local: "Appartement",
+  nombre_pieces_principales: 4,
+  surface_terrain: "",
+  longitude: "",
+  latitude: ""
+}
 
 export const FormSearch = (): JSX.Element => {
   /* eslint-disable */
@@ -130,7 +146,6 @@ export const FormSearch = (): JSX.Element => {
         <br />
         <Button onClick={() => {
             const div = document.getElementById("result");
-            console.log(div);
             if (div)
               div.scrollIntoView();
         }}>
@@ -140,10 +155,7 @@ export const FormSearch = (): JSX.Element => {
       <br/><h3>3 - Découvrez notre estimation</h3><br/>
       <h4 id="result">270 000€</h4>
       <br/><h3>4 - Parcourez les biens similaires</h3><br/>
-      <Table
-        columns={columns}
-        data={data}
-      />
+      <Table columns={columns} data={GetAcquisition(mock ,1, 10)} />
       <br />
     </div>);
 

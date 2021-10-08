@@ -1,7 +1,8 @@
 import { Acquisition, Transaction } from './Table';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-const data: Acquisition[] = [
+/* const data: Acquisition[] = [
   {
     date: '19 janvier 2020',
     value: '450 000,00€',
@@ -26,7 +27,7 @@ const data: Acquisition[] = [
   },
 ];
 
-const test: Transaction = {
+export const test: Transaction = {
     id_mutation: "",
     date_mutation: "",
     valeur_fonciere: "",
@@ -40,9 +41,9 @@ const test: Transaction = {
     surface_terrain: "",
     longitude: "",
     latitude: ""
-}
+}*/
 
-export const getTransaction = async (data: Transaction, page: number, pageSize: number) => {
+const getTransaction = async (data: Transaction, page: number, pageSize: number) => {
     try {
       const resp = await axios.post(`http://127.0.0.1:5000/getTransaction/${page}/${pageSize}`, {
         data,
@@ -50,16 +51,49 @@ export const getTransaction = async (data: Transaction, page: number, pageSize: 
           'Content-Type': 'CORS_HEADERS'
         }
       })
-      console.log(resp)
-      return resp
+      return resp;
 
     } catch(e) {
       console.error(e)
     }
 }
 
-const tetest3 = getTransaction(test, 1, 10)
+const getTransactionWrapped = async (req: Transaction, page: number, pageSize: number) => {
+  const res  = await getTransaction(req, page, pageSize);
+  if(res) {
+    const result: Acquisition[] = [];
+    console.log(res.data, typeof res.data)
+    const data = res.data as unknown as Transaction[];
+    data.forEach(elt => {
+      result.push({
+        date: elt.date_mutation,
+        value: elt.valeur_fonciere.toString(),
+        address: elt.adresse_nom_voie,
+        city: elt.nom_commune,
+        zip: elt.code_postal.toString(),
+        surface: elt.lot1_surface_carrez.toString(),
+        rooms: elt.nombre_pieces_principales.toString(),
+        lat: Number(elt.latitude.toString()),
+        lng: Number(elt.longitude.toString()),
+      })
+    })
+    return result
+  }
+}
 
-console.log(tetest3)
+const GetAcquisition = (dataset: Transaction, page: number, pageSize: number) => {
+  const [data, setData] = useState<Acquisition[] | undefined>([]);
 
-export default data;
+  const getData = async () => {
+      const data = await getTransactionWrapped(dataset, page, pageSize);
+      setData(data);
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+  return data;
+}
+
+export default GetAcquisition;

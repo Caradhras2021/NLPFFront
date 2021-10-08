@@ -10,8 +10,6 @@ import {
   FormSearch,
   Landing,
 } from './components';
-import CustomMap from './components/Map';
-import data from './components/Data';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,7 +21,6 @@ function App() {
         <Switch>
           <Route path="/about" exact component={() => <About />} />
           <Route path="/formsearch" exact component={() => <FormSearch />} />
-          <Route path="/map/:lat/:lng" exact component={() => <CustomMap data={data} />} />
           <Route path="/" exact component={() => <Landing />} />
         </Switch>
       </Router>

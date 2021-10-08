@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { FC, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ModalMap from './ModalMap';
 import './Table.css';
 
 export type Acquisition = {
@@ -37,12 +38,15 @@ export type Column = {
 }
 
 export interface TableProps{
-  data: Acquisition[],
+  data: Acquisition[] | undefined,
   columns: Column[]
 }
 
 /* eslint-disable */
 export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
+
+  if (!data) { return <h1>Loading</h1> }
+
   return (
     <table>
       <thead>
@@ -59,15 +63,11 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
                   {columns.map((column: Column) => (
                   <td>
                     {
-                      elt['address']}
+                      elt[column.accessor as keyof Acquisition]}
                   </td>
                   ))}
                   <td>
-                    <Link className="nav-link" to={`/map/${elt.lat}/${elt.lng}` }>
-                      <Button type="submit">
-                        Voir
-                      </Button>
-                    </Link>
+                    <ModalMap data={data} elt={elt} />
                   </td>
               </tr>
           ))}
