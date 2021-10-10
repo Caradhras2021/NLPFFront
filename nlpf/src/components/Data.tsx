@@ -1,47 +1,5 @@
 import { Acquisition, Transaction } from './Table';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-/* const data: Acquisition[] = [
-  {
-    date: '19 janvier 2020',
-    value: '450 000,00€',
-    address: '17 avenue de Paris',
-    city: 'Villejuif',
-    zip: '94800',
-    surface: '120m²',
-    rooms: '5',
-    lat: 51.506,
-    lng: -0.184,
-  },
-  {
-    date: '21 janvier 2020',
-    value: '250 000,00€',
-    address: '24 avenue du Général de Gaulle',
-    city: 'Saint Léonard de Noblat',
-    zip: '87200',
-    surface: '200m²',
-    rooms: '7',
-    lat: 51.508,
-    lng: -0.175,
-  },
-];
-
-export const test: Transaction = {
-    id_mutation: "",
-    date_mutation: "",
-    valeur_fonciere: "",
-    adresse_numero: "",
-    adresse_nom_voie: "",
-    code_postal: 44800,
-    nom_commune: "",
-    lot1_surface_carrez: "",
-    type_local: "Appartement",
-    nombre_pieces_principales: 4,
-    surface_terrain: "",
-    longitude: "",
-    latitude: ""
-}*/
 
 const getTransaction = async (data: Transaction, page: number, pageSize: number) => {
     try {
@@ -58,11 +16,12 @@ const getTransaction = async (data: Transaction, page: number, pageSize: number)
     }
 }
 
-const getTransactionWrapped = async (req: Transaction, page: number, pageSize: number) => {
-  const res  = await getTransaction(req, page, pageSize);
+const GetAcquisition = async (dataset: Transaction, page: number, pageSize: number) => {
+
+  const res  = await getTransaction(dataset, page, pageSize);
   if(res) {
     const result: Acquisition[] = [];
-    console.log(res.data, typeof res.data)
+    console.log(res.data)
     const data = res.data as unknown as Transaction[];
     data.forEach(elt => {
       result.push({
@@ -79,21 +38,6 @@ const getTransactionWrapped = async (req: Transaction, page: number, pageSize: n
     })
     return result
   }
-}
-
-const GetAcquisition = (dataset: Transaction, page: number, pageSize: number) => {
-  const [data, setData] = useState<Acquisition[] | undefined>([]);
-
-  const getData = async () => {
-      const data = await getTransactionWrapped(dataset, page, pageSize);
-      setData(data);
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
-
-  return data;
 }
 
 export default GetAcquisition;
