@@ -83,17 +83,18 @@ export const FormSearch = (): JSX.Element => {
   const prevPage = () => {
     if (page > 1)
       setPage(page - 1);
+    getData();
   }
   const nextPage = () => {
     setPage(page + 1);
+    getData();
   }
 
   const onFormSubmit = async () => {
 
     //Check on variables content
 
-    if (surface != "") { setSurface(parseFloat(surface.toString()))
-     console.log(surface, typeof surface) }
+    if (surface != "") { setSurface(parseFloat(surface.toString())) }
     if (zip === 0) { setZip("") }
     if (rooms != "") { setRooms(parseFloat(rooms.toString())) }
     
@@ -261,10 +262,10 @@ export const FormSearch = (): JSX.Element => {
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
         <Table columns={columns} data={data} />
         <br />
-        <Button variant="primary" onClick={() => prevPage}>
+        <Button variant="primary" onClick={prevPage} style={{margin: "20px"}}>
           Précédent
         </Button>
-        <Button variant="primary" onClick={() => nextPage}>
+        <Button variant="primary" onClick={nextPage}>
           Suivant
         </Button>
         <br />
