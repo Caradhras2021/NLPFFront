@@ -55,7 +55,7 @@ export const FormSearch = (): JSX.Element => {
   //Global component variables
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  //Form component varaibles
+  //Form component variables
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [mail, setMail] = useState("");
@@ -98,20 +98,23 @@ export const FormSearch = (): JSX.Element => {
   const prevPage = () => {
     if (page > 1)
       setPage(page - 1);
-    getData();
   }
   const nextPage = () => {
     setPage(page + 1);
-    getData();
   }
 
   const onFormSubmit = async () => {
 
     //Check on variables content
+    if (name == "" || lastname == "" || mail == "") { 
+      alert("Veuillez remplir vos informations pesonnelles avant de continuer");
+      return
+    }
+    setSurface(surface == 0 ? "" : parseFloat(surface.toString()));
+    setZip(zip == 0 ? "" : parseFloat(zip.toString()));
+    setRooms(rooms == 0 ? "" : parseFloat(rooms.toString()));
 
-    if (surface != "") { setSurface(parseFloat(surface.toString())) }
-    if (zip === 0) { setZip("") }
-    if (rooms != "") { setRooms(parseFloat(rooms.toString())) }
+    if (zip == "") { alert("Le code postal est obligatoire"); return }
     
     //Creation of request from form
     const req: Transaction = {
@@ -131,11 +134,11 @@ export const FormSearch = (): JSX.Element => {
     }
     
     //Loading and display of result
-    SetReq(req);
     const div = document.getElementById("res");
     if (div) div.style.display = "none";
     setLoading(true);
-    //await getData();
+    SetReq(req);
+    await sleep(3500);
     setLoading(false);
     if (div) div.style.display = "inline-block";
     const res = document.getElementById("result");
@@ -228,7 +231,7 @@ export const FormSearch = (): JSX.Element => {
             <Form.Label>Surface Carrez</Form.Label>
             <Form.Control type="number" placeholder="m²" 
               value={surface}
-              onChange={(event) => setSurface(event.target.value)}
+              onChange={(event) => setSurface(parseFloat(event.target.value))}
             />
             <Form.Control.Feedback type="invalid">
               Merci de remplir une surface valide.
@@ -238,7 +241,7 @@ export const FormSearch = (): JSX.Element => {
             <Form.Label>Nombre de pièces</Form.Label>
             <Form.Control type="number" placeholder="Nb pièces"
               value={rooms}
-              onChange={(event) => setRooms(event.target.value)}
+              onChange={(event) => setRooms(parseFloat(event.target.value))}
             />
             <Form.Control.Feedback type="invalid">
               Merci de remplir un nombre de pièces valide.

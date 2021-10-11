@@ -16,6 +16,7 @@ const getTransaction = async (data: Transaction, page: number, pageSize: number)
     }
 }
 
+
 const GetAcquisition = async (dataset: Transaction, page: number, pageSize: number) => {
 
   const res  = await getTransaction(dataset, page, pageSize);
