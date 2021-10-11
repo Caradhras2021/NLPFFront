@@ -70,15 +70,13 @@ export const FormSearch = (): JSX.Element => {
   const [data, setData] = useState([] as Acquisition[] | undefined);
 
  const getData = async () => {
-  await setTimeout(async () => {
-    const res = await GetAcquisition(req , page, 10 );
-    setData(res);
-  }, 10)
+  const res = await GetAcquisition(req , page, 10 );
+  setData(res);
  }
 
   useEffect(() => {
     getData();
-  }, [data]);
+  }, [req, page]);
 
   const prevPage = () => {
     if (page > 1)
@@ -120,7 +118,7 @@ export const FormSearch = (): JSX.Element => {
     const div = document.getElementById("res");
     if (div) div.style.display = "none";
     setLoading(true);
-    await getData();
+    //await getData();
     await sleep(5000);
     setLoading(false);
     if (div) div.style.display = "inline-block";
@@ -250,12 +248,12 @@ export const FormSearch = (): JSX.Element => {
           />
         </Form.Group>
         <br />
-        <Button onClick={() => onFormSubmit()}>
+        <Button onClick={() => onFormSubmit()} style={{margin: "20px"}}>
         Lancer votre évaluation
         </Button>
+        { loading && <Spinner animation="grow" variant="primary" /> }
         <br /><br />
       </Form>
-      { loading && <Spinner animation="grow" variant="primary" /> }
       <div id="res" style={{display: "none"}}>
         <br/><h3 id="result">3 - Découvrez notre estimation</h3><br/>
         <h4>270 000€</h4>
