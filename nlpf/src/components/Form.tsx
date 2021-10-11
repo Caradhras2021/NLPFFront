@@ -68,9 +68,26 @@ export const FormSearch = (): JSX.Element => {
   const [req, SetReq] = useState(basicSearch);
   //Data fetched from Data component
   const [data, setData] = useState([] as Acquisition[] | undefined);
+  const [pricing, setPricing] = useState(0)
+
+  const averagePrice = () => {
+    if (data !== undefined) {
+      let sum: number = 0
+      data.forEach(elt => {
+        sum += +elt.value
+      })
+      setPricing(sum / data.length)
+    }
+    else {
+      setPricing(0)
+    }
+  }
 
  const getData = async () => {
   const res = await GetAcquisition(req , page, 10 );
+  if (res !== undefined && data !== undefined) {
+    averagePrice()
+  }
   setData(res);
  }
 
@@ -119,7 +136,6 @@ export const FormSearch = (): JSX.Element => {
     if (div) div.style.display = "none";
     setLoading(true);
     //await getData();
-    await sleep(5000);
     setLoading(false);
     if (div) div.style.display = "inline-block";
     const res = document.getElementById("result");
@@ -256,7 +272,7 @@ export const FormSearch = (): JSX.Element => {
       </Form>
       <div id="res" style={{display: "none"}}>
         <br/><h3 id="result">3 - Découvrez notre estimation</h3><br/>
-        <h4>270 000€</h4>
+        <h4>{pricing}€</h4>
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
         <Table columns={columns} data={data} />
         <br />

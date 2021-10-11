@@ -44,19 +44,56 @@ export interface TableProps{
 
 /* eslint-disable */
 export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
+  const [isSort, setSort] = useState(false);
+  
+  const ascendingSortValue = (): void => {
+    if (data !== undefined) {
+      data.sort((a, b) => (+a.value < +b.value ? -1 : 1))
+      setSort(!isSort)
+    }
+      
+  }
+
+  const descendingSortValue = (): void => {
+    if (data !== undefined) {
+      data.sort((a, b) => (+a.value > +b.value ? -1 : 1));
+      setSort(!isSort)
+    }
+  }    
+
+  const dispTab = (): JSX.Element => {
+    const render: Array<JSX.Element> = [];
+    columns.map((column: any) => {
+      if (column.Header === "valeur_frontiere" && data !== undefined) {
+        render.push(<div>
+          <th onClick={() => isSort ? ascendingSortValue : descendingSortValue}>{column.Header}</th>
+            <th>Carte</th>
+        </div>)
+      }
+      else {
+          render.push(<div>
+            <th>{column.Header}</th>
+            <th>Carte</th>
+          </div>)
+      }
+    })
+    console.log(render)
+    return (
+      <thead>
+        <tr>
+          {render}
+        </tr>
+      </thead>
+    )
+  }
 
   if (!data) { return <h1>Loading</h1> }
 
   return (
     <table>
-      <thead>
-        <tr>
-          { columns.map((column: any) => (
-            <th>{column.Header}</th>
-          ))}
-          <th>Carte</th>
-        </tr>
-      </thead>
+      <div>
+      {dispTab}
+      </div>
       <tbody >
           { data.map((elt: Acquisition) => (
               <tr>
