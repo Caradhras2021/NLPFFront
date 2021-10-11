@@ -55,7 +55,7 @@ export const FormSearch = (): JSX.Element => {
   //Global component variables
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  //Form component varaibles
+  //Form component variables
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [mail, setMail] = useState("");
@@ -81,11 +81,9 @@ export const FormSearch = (): JSX.Element => {
   const prevPage = () => {
     if (page > 1)
       setPage(page - 1);
-    getData();
   }
   const nextPage = () => {
     setPage(page + 1);
-    getData();
   }
 
   const onFormSubmit = async () => {
@@ -114,12 +112,11 @@ export const FormSearch = (): JSX.Element => {
     }
     
     //Loading and display of result
-    SetReq(req);
     const div = document.getElementById("res");
     if (div) div.style.display = "none";
     setLoading(true);
-    //await getData();
-    await sleep(5000);
+    SetReq(req);
+    await sleep(2500);
     setLoading(false);
     if (div) div.style.display = "inline-block";
     const res = document.getElementById("result");

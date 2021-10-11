@@ -63,7 +63,8 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
                   {columns.map((column: Column) => (
                   <td>
                     {
-                      elt[column.accessor as keyof Acquisition]}
+                      elt[column.accessor as keyof Acquisition]
+                    }
                   </td>
                   ))}
                   <td>
