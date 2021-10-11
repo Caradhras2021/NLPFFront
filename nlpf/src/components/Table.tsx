@@ -45,6 +45,21 @@ export interface TableProps{
 /* eslint-disable */
 export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
   const [isSort, setSort] = useState(false);
+  const [isSortDate, setSortDate] = useState(false)
+
+  const ascendingDate = (): void => {
+    if (data !== undefined) {
+      data.sort((a, b) => (new Date(b.date) > new Date(a.date) ? -1 : 1))
+      setSortDate(!isSortDate)
+    }
+  }
+
+  const descendingDate = (): void => {
+    if (data !== undefined) {
+      data.sort((a, b) => (new Date(b.date) < new Date(a.date) ? -1 : 1))
+      setSortDate(!isSortDate)
+    }
+  }
 
   const ascendingSortValue = (): void => {
     if (data !== undefined) {
@@ -65,8 +80,10 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
     const render: Array<JSX.Element> = [];
     columns.map((column: any) => {
       if (column.Header === "Valeur foncière" && data !== undefined) {
-        console.log('wsh la zone')
         render.push(<th onClick={() => isSort ? ascendingSortValue() : descendingSortValue()}>{column.Header}</th>)
+      }
+      else if (column.Header === "Date" && data !== undefined) {
+        render.push(<th onClick={() => isSortDate ? ascendingDate() : descendingDate()}>{column.Header}</th>)
       }
       else {
           render.push(<th>{column.Header}</th>)

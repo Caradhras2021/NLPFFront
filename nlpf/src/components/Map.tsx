@@ -24,7 +24,6 @@ function CustomMap ({ data, elt }: { data: Acquisition[], elt: Acquisition }): J
       title: elt.address,
       label: elt.value,
       });
-      console.log(marker)
       return marker;
    }
   )};

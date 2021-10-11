@@ -22,7 +22,6 @@ const GetAcquisition = async (dataset: Transaction, page: number, pageSize: numb
   const res  = await getTransaction(dataset, page, pageSize);
   if(res) {
     const result: Acquisition[] = [];
-    console.log(res.data)
     const data = res.data as unknown as Transaction[];
     data.forEach(elt => {
       result.push({
