@@ -45,7 +45,7 @@ export interface TableProps{
 /* eslint-disable */
 export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
   const [isSort, setSort] = useState(false);
-  
+
   const ascendingSortValue = (): void => {
     if (data !== undefined) {
       data.sort((a, b) => (+a.value < +b.value ? -1 : 1))
@@ -64,24 +64,19 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
   const dispTab = (): JSX.Element => {
     const render: Array<JSX.Element> = [];
     columns.map((column: any) => {
-      if (column.Header === "valeur_frontiere" && data !== undefined) {
-        render.push(<div>
-          <th onClick={() => isSort ? ascendingSortValue : descendingSortValue}>{column.Header}</th>
-            <th>Carte</th>
-        </div>)
+      if (column.Header === "Valeur foncière" && data !== undefined) {
+        console.log('wsh la zone')
+        render.push(<th onClick={() => isSort ? ascendingSortValue() : descendingSortValue()}>{column.Header}</th>)
       }
       else {
-          render.push(<div>
-            <th>{column.Header}</th>
-            <th>Carte</th>
-          </div>)
+          render.push(<th>{column.Header}</th>)
       }
     })
-    console.log(render)
     return (
       <thead>
         <tr>
           {render}
+          <th>Carte</th>
         </tr>
       </thead>
     )
@@ -91,9 +86,7 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
 
   return (
     <table>
-      <div>
-      {dispTab}
-      </div>
+      {dispTab()}
       <tbody >
           { data.map((elt: Acquisition) => (
               <tr>
