@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs"
 import ModalMap from './ModalMap';
 import './Table.css';
 
@@ -80,7 +81,17 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
     const render: Array<JSX.Element> = [];
     columns.map((column: any) => {
       if (column.Header === "Valeur foncière" && data !== undefined) {
-        render.push(<th onClick={() => isSort ? ascendingSortValue() : descendingSortValue()}>{column.Header}</th>)
+        if (isSort) {
+          render.push(<th onClick={() => ascendingSortValue()}>
+          {column.Header}
+          <BsFillArrowUpCircleFill style={{display: "inline"}} />
+        </th>)
+        } else {
+          render.push(<th onClick={() => descendingSortValue()}>
+          {column.Header}
+          <BsFillArrowDownCircleFill style={{display: "inline"}} />
+        </th>)
+        }
       }
       else if (column.Header === "Date" && data !== undefined) {
         render.push(<th onClick={() => isSortDate ? ascendingDate() : descendingDate()}>{column.Header}</th>)
@@ -89,6 +100,7 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
           render.push(<th>{column.Header}</th>)
       }
     })
+
     return (
       <thead>
         <tr>
