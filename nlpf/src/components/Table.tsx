@@ -81,12 +81,12 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
       if (column.Header === "Valeur foncière" && data !== undefined) {
         if (isSort) {
           render.push(<th onClick={() => ascendingSortValue()}>
-          {column.Header}
+          {column.Header + ' '}
           <BsFillArrowUpCircleFill style={{display: "inline"}} />
         </th>)
         } else {
           render.push(<th onClick={() => descendingSortValue()}>
-          {column.Header}
+          {column.Header + ' '}
           <BsFillArrowDownCircleFill style={{display: "inline"}} />
         </th>)
         }
@@ -94,13 +94,13 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
       else if (column.Header === "Date" && data !== undefined) {
         if (isSortDate) {
           render.push(<th onClick={() => ascendingDate()}>
-            {column.Header}
+            {column.Header + ' '}
             <BsFillArrowUpCircleFill style={{display: "inline"}} />
             </th>)
         }
         else {
           render.push(<th onClick={() => descendingDate()}>
-            {column.Header}
+            {column.Header + ' '}
             <BsFillArrowDownCircleFill style={{display: "inline"}} />
             </th>)
         }
