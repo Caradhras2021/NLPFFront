@@ -243,7 +243,7 @@ export const FormSearch = (): JSX.Element => {
       </Form>
       <div id="res" style={{display: "none"}}>
         <br/><h3 id="result">3 - Découvrez nos résultats</h3><br/>
-        <h4>Prix moyen selon vos critères : {pricing}€</h4>
+        <h4>Prix moyen selon vos critères : {pricing == NaN ? pricing: 0}€</h4>
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
         <Table columns={columns} data={data} />
         <br />
