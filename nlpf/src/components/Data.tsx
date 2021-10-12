@@ -19,8 +19,8 @@ const getTransaction = async (data: Transaction, page: number, pageSize: number)
 const GetAcquisition = async (dataset: Transaction, page: number, pageSize: number) => {
 
   const res  = await getTransaction(dataset, page, pageSize);
+  const result: Acquisition[] = [];
   if(res) {
-    const result: Acquisition[] = [];
     const data = res.data as unknown as Transaction[];
     data.forEach(elt => {
       result.push({

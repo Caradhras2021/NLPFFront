@@ -5,6 +5,7 @@ import { Table, Column, Transaction, Acquisition } from './Table';
 import GetAcquisition from './Data';
 import { useEffect, useState } from 'react';
 import Conditions from './Conditions';
+import postLogs, { Log } from './PostLogs';
 
 //Column object to create dynamic table
 const columns: Column[] = [
@@ -133,12 +134,19 @@ export const FormSearch = (): JSX.Element => {
       longitude: "",
       latitude: "",
     }
+
+    const log: Log = {
+      firstname: name,
+      lastname: lastname,
+      email_address: mail
+    }
     
     //Loading and display of result
     const div = document.getElementById("res");
     if (div) div.style.display = "none";
     setLoading(true);
     SetReq(req);
+    postLogs(log);
     await sleep(3500);
     setLoading(false);
     if (div) div.style.display = "inline-block";
