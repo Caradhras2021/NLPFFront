@@ -4,6 +4,7 @@ import { Col, InputGroup, Row, Spinner } from 'react-bootstrap';
 import { Table, Column, Transaction, Acquisition } from './Table';
 import GetAcquisition from './Data';
 import { useEffect, useState } from 'react';
+import Conditions from './Conditions';
 
 //Column object to create dynamic table
 const columns: Column[] = [
@@ -225,14 +226,16 @@ export const FormSearch = (): JSX.Element => {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
+        <br />
         <Form.Group className="mb-3">
           <Form.Check
             required
-            label="Accepter les conditions d'utilisation"
+            label="Accepter les conditions générales d'utilisation"
             feedback="Vous devez acceptez avant de lancer votre évaluation."
             feedbackType="invalid"
             onClick={() => SetCgu(!cgu)}
           />
+          <Conditions />
         </Form.Group>
         <br />
         <Button onClick={() => onFormSubmit()} style={{margin: "20px"}}>

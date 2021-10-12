@@ -14,7 +14,7 @@ export const ModalMap = ({ data, elt }: { data: Acquisition[], elt: Acquisition 
     <div className="container">
    
       <Button variant="primary" onClick={handleShow}>
-        See Map
+        Carte
       </Button>
    
       <Modal size="lg" show={show} onHide={handleClose}>
@@ -26,7 +26,7 @@ export const ModalMap = ({ data, elt }: { data: Acquisition[], elt: Acquisition 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Fermer
           </Button>
         </Modal.Footer>
       </Modal>
