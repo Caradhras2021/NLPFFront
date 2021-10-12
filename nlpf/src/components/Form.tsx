@@ -97,7 +97,7 @@ export const FormSearch = (): JSX.Element => {
 
   const onFormSubmit = async () => {
 
-    //Check on variables content
+    //Check mandatory variables
     if (name === "" || lastname === "" || mail === "") { 
       alert("Veuillez remplir vos informations personnelles avant de continuer");
       return
@@ -106,9 +106,13 @@ export const FormSearch = (): JSX.Element => {
       alert("Veuillez acceptez les CGU avant de valider votre requête")
       return
     }
-    setSurface(surface === 0 ? "" : parseFloat(surface.toString()));
-    setZip(zip === 0 ? "" : parseFloat(zip.toString()));
-    setRooms(rooms === 0 ? "" : parseFloat(rooms.toString()));
+
+    //Check variables content
+
+    setSurface(surface == 0 || surface == NaN ? "" : parseFloat(surface.toString()));
+    setZip(zip == 0 || zip == NaN ? "" : parseFloat(zip.toString()));
+    setRooms(rooms == 0  || rooms == NaN ? "" : parseFloat(rooms.toString()));
+    
 
     if (zip === "") { alert("Le code postal est obligatoire"); return }
     
