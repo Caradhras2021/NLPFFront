@@ -68,28 +68,23 @@ export const FormSearch = (): JSX.Element => {
   const [data, setData] = useState([] as Acquisition[] | undefined);
   const [pricing, setPricing] = useState(0);
 
-  const averagePrice = () => {
-    if (data !== undefined) {
-      let sum: number = 0
-      data.forEach(elt => {
-        sum += +elt.value
-      })
-      setPricing(Math.round(sum / data.length))
-    }
-    else {
-      setPricing(0)
-    }
+  const averagePrice = (dataArray: Acquisition[]) => {
+    if (dataArray.length === 0) setPricing(0)
+    let sum: number = 0
+    dataArray.forEach(elt => {
+      sum += +elt.value
+    })
+    setPricing(Math.round(sum / dataArray.length))
   }
 
  const getData = async () => {
   const res = await GetAcquisition(req , page, 10 );
   setData(res);
+  if (res !== undefined) averagePrice(res);
  }
 
   useEffect(() => {
     getData();
-    averagePrice();
-    console.log(pricing)
   }, [req, page]);
 
   const prevPage = () => {
@@ -103,7 +98,7 @@ export const FormSearch = (): JSX.Element => {
   const onFormSubmit = async () => {
 
     //Check on variables content
-    if (name == "" || lastname == "" || mail == "") { 
+    if (name === "" || lastname === "" || mail === "") { 
       alert("Veuillez remplir vos informations personnelles avant de continuer");
       return
     }
@@ -111,11 +106,11 @@ export const FormSearch = (): JSX.Element => {
       alert("Veuillez acceptez les CGU avant de valider votre requête")
       return
     }
-    setSurface(surface == 0 ? "" : parseFloat(surface.toString()));
-    setZip(zip == 0 ? "" : parseFloat(zip.toString()));
-    setRooms(rooms == 0 ? "" : parseFloat(rooms.toString()));
+    setSurface(surface === 0 ? "" : parseFloat(surface.toString()));
+    setZip(zip === 0 ? "" : parseFloat(zip.toString()));
+    setRooms(rooms === 0 ? "" : parseFloat(rooms.toString()));
 
-    if (zip == "") { alert("Le code postal est obligatoire"); return }
+    if (zip === "") { alert("Le code postal est obligatoire"); return }
     
     //Creation of request from form
     const req: Transaction = {

@@ -1,6 +1,4 @@
-import React, { FC, useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { FC, useState } from 'react';
 import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs"
 import ModalMap from './ModalMap';
 import './Table.css';
@@ -94,7 +92,18 @@ export const Table: FC<TableProps> = ({ data, columns }: TableProps) => {
         }
       }
       else if (column.Header === "Date" && data !== undefined) {
-        render.push(<th onClick={() => isSortDate ? ascendingDate() : descendingDate()}>{column.Header}</th>)
+        if (isSortDate) {
+          render.push(<th onClick={() => ascendingDate()}>
+            {column.Header}
+            <BsFillArrowUpCircleFill style={{display: "inline"}} />
+            </th>)
+        }
+        else {
+          render.push(<th onClick={() => descendingDate()}>
+            {column.Header}
+            <BsFillArrowDownCircleFill style={{display: "inline"}} />
+            </th>)
+        }
       }
       else {
           render.push(<th>{column.Header}</th>)
