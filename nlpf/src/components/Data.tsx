@@ -26,7 +26,7 @@ const GetAcquisition = async (dataset: Transaction, page: number, pageSize: numb
       result.push({
         date: elt.date_mutation,
         value: elt.valeur_fonciere.toString(),
-        address: elt.adresse_nom_voie,
+        address: elt.adresse_nom_voie.toLowerCase(),
         city: elt.nom_commune,
         zip: elt.code_postal.toString(),
         surface: elt.lot1_surface_carrez.toString(),

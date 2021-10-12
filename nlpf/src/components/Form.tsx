@@ -59,16 +59,14 @@ export const FormSearch = (): JSX.Element => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [mail, setMail] = useState("");
-  const [address, setAddress] = useState("");
   const [zip, setZip] = useState("" as string | number);
-  const [region, setRegion] = useState("");
   const [surface, setSurface] = useState("" as string | number);
   const [rooms, setRooms] = useState("" as string | number);
-  const [garden, setGarden] = useState("");
   const [req, SetReq] = useState(basicSearch);
+  const [cgu, SetCgu] = useState(false);
   //Data fetched from Data component
   const [data, setData] = useState([] as Acquisition[] | undefined);
-  const [pricing, setPricing] = useState(0)
+  const [pricing, setPricing] = useState(0);
 
   const averagePrice = () => {
     if (data !== undefined) {
@@ -76,7 +74,7 @@ export const FormSearch = (): JSX.Element => {
       data.forEach(elt => {
         sum += +elt.value
       })
-      setPricing(sum / data.length)
+      setPricing(Math.round(sum / data.length))
     }
     else {
       setPricing(0)
@@ -85,14 +83,13 @@ export const FormSearch = (): JSX.Element => {
 
  const getData = async () => {
   const res = await GetAcquisition(req , page, 10 );
-  if (res !== undefined && data !== undefined) {
-    averagePrice()
-  }
   setData(res);
  }
 
   useEffect(() => {
     getData();
+    averagePrice();
+    console.log(pricing)
   }, [req, page]);
 
   const prevPage = () => {
@@ -107,7 +104,11 @@ export const FormSearch = (): JSX.Element => {
 
     //Check on variables content
     if (name == "" || lastname == "" || mail == "") { 
-      alert("Veuillez remplir vos informations pesonnelles avant de continuer");
+      alert("Veuillez remplir vos informations personnelles avant de continuer");
+      return
+    }
+    if (!cgu) {
+      alert("Veuillez acceptez les CGU avant de valider votre requête")
       return
     }
     setSurface(surface == 0 ? "" : parseFloat(surface.toString()));
@@ -122,13 +123,13 @@ export const FormSearch = (): JSX.Element => {
       date_mutation: "",
       valeur_fonciere: "",
       adresse_numero: "",
-      adresse_nom_voie: address,
+      adresse_nom_voie: "",
       code_postal: zip,
       nom_commune: "",
       lot1_surface_carrez: surface,
       type_local: "Appartement",
       nombre_pieces_principales: rooms,
-      surface_terrain: garden,
+      surface_terrain: "",
       longitude: "",
       latitude: "",
     }
@@ -194,27 +195,7 @@ export const FormSearch = (): JSX.Element => {
         </Row>
         <br/><h3>2 - Remplissez les informations concernant votre bien</h3><br/>
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="address">
-            <Form.Label>Adresse de votre bien</Form.Label>
-            <Form.Control type="text" placeholder="Adresse"
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
-            />
-            <Form.Control.Feedback type="invalid">
-              Merci de remplir une adresse valide.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="region">
-            <Form.Label>Département</Form.Label>
-            <Form.Control type="text" placeholder="Département"
-              value={region}
-              onChange={(event) => setRegion(event.target.value)}
-            />
-            <Form.Control.Feedback type="invalid">
-              Merci de remplir un département valide.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="zip">
+          <Form.Group as={Col} md="4" controlId="zip">
             <Form.Label>Code Postal</Form.Label>
             <Form.Control type="number" placeholder="Code postal"
               value={zip}
@@ -224,9 +205,6 @@ export const FormSearch = (): JSX.Element => {
               Merci de remplir un code postal valide.
             </Form.Control.Feedback>
           </Form.Group>
-        </Row>
-        <br />
-        <Row className="mb-3">
           <Form.Group as={Col} md="4" controlId="surface">
             <Form.Label>Surface Carrez</Form.Label>
             <Form.Control type="number" placeholder="m²" 
@@ -247,16 +225,6 @@ export const FormSearch = (): JSX.Element => {
               Merci de remplir un nombre de pièces valide.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="garden">
-            <Form.Label>Surface jardin</Form.Label>
-            <Form.Control type="text" placeholder="m²"
-              value={garden}
-              onChange={(event) => setGarden(event.target.value)}
-            />
-            <Form.Control.Feedback type="invalid">
-              Merci de remplir une surface de jardin valide.
-            </Form.Control.Feedback>
-          </Form.Group>
         </Row>
         <Form.Group className="mb-3">
           <Form.Check
@@ -264,6 +232,7 @@ export const FormSearch = (): JSX.Element => {
             label="Accepter les conditions d'utilisation"
             feedback="Vous devez acceptez avant de lancer votre évaluation."
             feedbackType="invalid"
+            onClick={() => SetCgu(!cgu)}
           />
         </Form.Group>
         <br />
@@ -274,8 +243,8 @@ export const FormSearch = (): JSX.Element => {
         <br /><br />
       </Form>
       <div id="res" style={{display: "none"}}>
-        <br/><h3 id="result">3 - Découvrez notre estimation</h3><br/>
-        <h4>{pricing}€</h4>
+        <br/><h3 id="result">3 - Découvrez nos résultats</h3><br/>
+        <h4>Prix moyen selon vos critères : {pricing}€</h4>
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
         <Table columns={columns} data={data} />
         <br />
