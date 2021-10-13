@@ -6,6 +6,7 @@ import GetAcquisition from './Data';
 import { useEffect, useState } from 'react';
 import Conditions from './Conditions';
 import postLogs, { Log } from './PostLogs';
+import './Form.css';
 
 //Column object to create dynamic table
 const columns: Column[] = [
@@ -72,14 +73,25 @@ export const FormSearch = (): JSX.Element => {
   //Data fetched from Data component
   const [data, setData] = useState([] as Acquisition[] | undefined);
   const [pricing, setPricing] = useState(0);
+  const [mean, setMean] = useState(0);
 
   const averagePrice = (dataArray: Acquisition[]) => {
-    if (dataArray.length === 0) setPricing(0)
+    if (!data || dataArray.length === 0) {
+      setPricing(0)
+      return
+    }
     let sum: number = 0
     dataArray.forEach(elt => {
       sum += +elt.value
     })
-    setPricing(Math.round(sum / dataArray.length))
+    setPricing(Math.round(sum / dataArray.length));
+    const elt = data[0];
+    if (elt) {
+      const houseMean = elt.houseMean ? elt.houseMean : 0
+      const apartMean = elt.apartMean ? elt.apartMean : 0
+      const mean = Math.max(houseMean, apartMean);
+      setMean(Math.round(mean));
+    }
   }
 
  const getData = async () => {
@@ -154,7 +166,7 @@ export const FormSearch = (): JSX.Element => {
     setLoading(true);
     SetReq(req);
     postLogs(log);
-    await sleep(3500);
+    await sleep(5000);
     setLoading(false);
     if (div) div.style.display = "inline-block";
     const res = document.getElementById("result");
@@ -284,7 +296,12 @@ export const FormSearch = (): JSX.Element => {
       </Form>
       <div id="res" style={{display: "none"}}>
         <br/><h3 id="result">3 - Découvrez nos résultats</h3><br/>
-        <h4>Prix moyen selon vos critères : {pricing}€</h4>
+        <div>
+        <h4>Prix moyen des biens similaires : <span>{pricing}€</span></h4>
+        <h4>Prix moyen au mètre carré : <span>{mean}€</span></h4>
+        {surface != "" && <h4>Estimation du prix de votre bien : <span >{mean * parseFloat(surface.toString())}€</span>
+          </h4>}
+        </div>
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
         <Table columns={columns} data={data} />
         <br />

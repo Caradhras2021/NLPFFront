@@ -21,7 +21,10 @@ const GetAcquisition = async (dataset: Transaction, page: number, pageSize: numb
   const res  = await getTransaction(dataset, page, pageSize);
   const result: Acquisition[] = [];
   if(res) {
-    const data = res.data as unknown as Transaction[];
+    const tmp = res.data as unknown as Transaction[];
+    if (tmp.length <= 1) return [] 
+    const mean = tmp.pop() as any;
+    const data = tmp as Transaction[];
     data.forEach(elt => {
       result.push({
         date: elt.date_mutation,
@@ -35,6 +38,9 @@ const GetAcquisition = async (dataset: Transaction, page: number, pageSize: numb
         lng: Number(elt.longitude.toString()),
       })
     })
+    result[0].houseMean = mean['price_m2_appartement'];
+    result[0].apartMean = mean['price_m2_maison'];
+    console.log(result);
     return result
   }
 }

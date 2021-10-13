@@ -13,6 +13,8 @@ export type Acquisition = {
     rooms: string,
     lat: number,
     lng: number,
+    houseMean?: number,
+    apartMean?: number,
 }
 
 export type Transaction = {
@@ -28,7 +30,9 @@ export type Transaction = {
   nombre_pieces_principales: number | string,
   surface_terrain: number | string,
   longitude: number | string,
-  latitude: number | string
+  latitude: number | string,
+  houseMean?: number,
+  apartMean?: number,
 }
 
 export type Column = {
