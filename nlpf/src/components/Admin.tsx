@@ -88,20 +88,30 @@ function Admin() {
     SetAdmin(false);
   }
 
+  const logDisp = () => {
+    if (admin) {
+        return <div></div>
+    }
+    return (
+        <div>
+        <p>Connectez-vous en tant qu'administrateur pour accéder au
+        contenu de cette page.
+        </p>   
+        <Button variant="primary" onClick={handleShow}>
+            Se connecter &nbsp;
+            <BsFillGearFill />
+        </Button>
+        </div>
+    )
+  }
+
   return (
     <div className="about">
       <div className="container">
         <div className="row align-items-center my-5">
           <div className="col-lg-3"><br /></div>
           <div className="col-lg-6">
-            <p>Connectez-vous en tant qu'administrateur pour accéder au
-            contenu de cette page.
-            </p>
-            <div className="container">   
-            <Button variant="primary" onClick={handleShow}>
-                Se connecter &nbsp;
-                <BsFillGearFill />
-            </Button>
+            {logDisp()}
 
             <Modal size="lg" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -154,7 +164,6 @@ function Admin() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
