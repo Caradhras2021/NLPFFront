@@ -10,6 +10,7 @@ import {
   FormSearch,
   Landing,
 } from './components';
+import Admin from './components/Admin';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/about" exact component={() => <About />} />
           <Route path="/formsearch" exact component={() => <FormSearch />} />
           <Route path="/" exact component={() => <Landing />} />
+          <Route path="/admin" exact component={() => <Admin />} />
         </Switch>
       </Router>
     </div>
