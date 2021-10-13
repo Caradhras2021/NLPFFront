@@ -85,12 +85,12 @@ export const FormSearch = (): JSX.Element => {
       sum += +elt.value
     })
     setPricing(Math.round(sum / dataArray.length));
-    const elt = data[0];
+    const elt = dataArray[0];
     if (elt) {
       const houseMean = elt.houseMean ? elt.houseMean : 0
       const apartMean = elt.apartMean ? elt.apartMean : 0
-      const mean = Math.max(houseMean, apartMean);
-      setMean(Math.round(mean));
+      const tmp = Math.max(houseMean, apartMean);
+      setMean(Math.round(tmp));
     }
   }
 
