@@ -40,7 +40,6 @@ const GetAcquisition = async (dataset: Transaction, page: number, pageSize: numb
     })
     result[0].houseMean = mean['price_m2_appartement'];
     result[0].apartMean = mean['price_m2_maison'];
-    console.log(result);
     return result
   }
 }
