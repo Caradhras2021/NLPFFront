@@ -14,7 +14,7 @@ function Navigation(props: any) {
               alt=""
             />
             <p>
-              SeDéloger.com
+              sedéloger.fr
             </p>
           </Link>
 

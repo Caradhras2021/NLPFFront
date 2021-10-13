@@ -17,10 +17,15 @@ function About() {
             <br />
             <h4>Avantages : </h4>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry s standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Flask est un framework avec de nombreuses ressources disponibles
+              (vidéos yt, documentation claire). Il utilise également la bibliothèque
+              originelle de Python qui est un langage à typage fort dynamique 
+              qui permet une certaine flexibilité dans le code.
+            </p>
+            <h4>Inconvénients : </h4>
+            <p>
+              L’utilisation des arguments optionnels dans l’url des requêtes a été
+              compliquée à prendre en main.
             </p>
           </div>
         </div>
@@ -30,10 +35,12 @@ function About() {
             <br />
             <h4>Avantages : </h4>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry s standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Une grande documentation est à disposition sur les modules, ressources, bibliothèques.
+              Intégrer de nombreuses bibliothèques nous a simplifié l’accomplissement de nos features : Bootstrap notamment.
+            </p>
+            <h4>Inconvénients : </h4>
+            <p>
+              Peu de documentation sur les erreurs du typage des props.
             </p>
           </div>
           <div className="col-lg-7">
@@ -56,12 +63,11 @@ function About() {
           <div className="col-lg-5" style={{ textAlign: "left" }}>
             <h1 className="font-weight-light">Data</h1>
             <br />
-            <h4>Avantages : </h4>
+            <h4>Critique : </h4>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry s standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              La base de données relationnelle aurait été plus adéquate car elle 
+              aurait amélioré la performance de l’application: la récupération des 
+              objets était longue et la recherche par objet n’était pas optimisée.
             </p>
           </div>
         </div>
