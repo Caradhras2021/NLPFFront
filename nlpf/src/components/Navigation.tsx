@@ -8,7 +8,11 @@ function Navigation(props: any) {
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <img src={logo} className="App-logo" alt="logo" />
+            <img
+              className="App-logo"
+              src="https://clipartart.com/images/country-house-clipart-2.png"
+              alt=""
+            />
             <p>
               SeDéloger.com
             </p>
