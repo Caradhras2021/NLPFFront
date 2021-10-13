@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
 import GoogleMapReact, { Coords } from 'google-map-react';
-import { useParams } from 'react-router-dom';
 import { Acquisition } from './Table';
 
 /* eslint-disable */

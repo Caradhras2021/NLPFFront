@@ -95,6 +95,12 @@ export const FormSearch = (): JSX.Element => {
   }
 
  const getData = async () => {
+   if (isNaN(+req.lot1_surface_carrez)) {
+    req.lot1_surface_carrez = ""
+   }
+   if (isNaN(+req.nombre_pieces_principales)) {
+     req.nombre_pieces_principales = ""
+    }
   const res = await GetAcquisition(req , page, 10 );
   setData(res);
   if (res !== undefined) averagePrice(res);
@@ -130,9 +136,9 @@ export const FormSearch = (): JSX.Element => {
 
     //Check variables content
 
-    setSurface(surface == 0 || surface == NaN ? "" : parseFloat(surface.toString()));
-    setZip(zip == 0 || zip == NaN ? "" : parseFloat(zip.toString()));
-    setRooms(rooms == 0  || rooms == NaN ? "" : parseFloat(rooms.toString()));
+    setSurface(surface === 0 || surface === NaN ? "" : parseFloat(surface.toString()));
+    setZip(zip === 0 || zip === NaN ? "" : parseFloat(zip.toString()));
+    setRooms(rooms === 0  || rooms === NaN ? "" : parseFloat(rooms.toString()));
     const type = house ? apartment ? "" : "Appartement" : "Maison";
 
     if (zip === "") { alert("Le code postal est obligatoire"); return }
@@ -167,10 +173,11 @@ export const FormSearch = (): JSX.Element => {
     SetReq(req);
     postLogs(log);
     await sleep(5000);
-    setLoading(false);
+    setLoading(false)
     if (div) div.style.display = "inline-block";
     const res = document.getElementById("result");
     if (res) res.scrollIntoView();
+    
   }
 
   /* eslint-disable */
