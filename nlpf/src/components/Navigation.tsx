@@ -10,7 +10,7 @@ function Navigation(props: any) {
           <Link className="navbar-brand" to="/">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              Caradhras NLPF application
+              SeDéloger.com
             </p>
           </Link>
 
