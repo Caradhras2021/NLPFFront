@@ -60,6 +60,7 @@ export const FormSearch = (): JSX.Element => {
   //Form component variables
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
+  const [address, setAddress] = useState("");
   const [mail, setMail] = useState("");
   const [zip, setZip] = useState("" as string | number);
   const [surface, setSurface] = useState("" as string | number);
@@ -114,7 +115,6 @@ export const FormSearch = (): JSX.Element => {
     setSurface(surface == 0 || surface == NaN ? "" : parseFloat(surface.toString()));
     setZip(zip == 0 || zip == NaN ? "" : parseFloat(zip.toString()));
     setRooms(rooms == 0  || rooms == NaN ? "" : parseFloat(rooms.toString()));
-    
 
     if (zip === "") { alert("Le code postal est obligatoire"); return }
     
@@ -124,7 +124,7 @@ export const FormSearch = (): JSX.Element => {
       date_mutation: "",
       valeur_fonciere: "",
       adresse_numero: "",
-      adresse_nom_voie: "",
+      adresse_nom_voie: address.toUpperCase(),
       code_postal: zip,
       nom_commune: "",
       lot1_surface_carrez: surface,
@@ -213,7 +213,7 @@ export const FormSearch = (): JSX.Element => {
               Merci de remplir un code postal valide.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="surface">
+          <Form.Group as={Col} md="2" controlId="surface">
             <Form.Label>Surface Carrez</Form.Label>
             <Form.Control type="number" placeholder="m²" 
               value={surface}
@@ -223,11 +223,21 @@ export const FormSearch = (): JSX.Element => {
               Merci de remplir une surface valide.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="rooms">
+          <Form.Group as={Col} md="2" controlId="rooms">
             <Form.Label>Nombre de pièces</Form.Label>
             <Form.Control type="number" placeholder="Nb pièces"
               value={rooms}
               onChange={(event) => setRooms(parseFloat(event.target.value))}
+            />
+            <Form.Control.Feedback type="invalid">
+              Merci de remplir un nombre de pièces valide.
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="4" controlId="rooms">
+            <Form.Label>Rue</Form.Label>
+            <Form.Control type="text" placeholder="rue"
+              value={address}
+              onChange={(event) => setAddress(event.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Merci de remplir un nombre de pièces valide.
