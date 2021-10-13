@@ -140,7 +140,7 @@ function Admin() {
                       </Row>
                     </Form>
                     <br />
-                    { error && <p style={{ color: "red" }}> Vos mots de passes de correspondent pas !</p>}
+                    { error && <p style={{ color: "red" }}> Votre mot de passe n'est pas valide !</p>}
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleConnect}>
