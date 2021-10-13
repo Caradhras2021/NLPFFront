@@ -67,6 +67,8 @@ export const FormSearch = (): JSX.Element => {
   const [rooms, setRooms] = useState("" as string | number);
   const [req, SetReq] = useState(basicSearch);
   const [cgu, SetCgu] = useState(false);
+  const [house, SetHouse] = useState(false);
+  const [apartment, SetApartment] = useState(false);
   //Data fetched from Data component
   const [data, setData] = useState([] as Acquisition[] | undefined);
   const [pricing, setPricing] = useState(0);
@@ -105,6 +107,10 @@ export const FormSearch = (): JSX.Element => {
       alert("Veuillez remplir vos informations personnelles avant de continuer");
       return
     }
+    if (!house && !apartment) {
+      alert("Veuillez sélectionner au moins un type de bien : Maison / Appartement")
+      return
+    }
     if (!cgu) {
       alert("Veuillez acceptez les CGU avant de valider votre requête")
       return
@@ -115,6 +121,7 @@ export const FormSearch = (): JSX.Element => {
     setSurface(surface == 0 || surface == NaN ? "" : parseFloat(surface.toString()));
     setZip(zip == 0 || zip == NaN ? "" : parseFloat(zip.toString()));
     setRooms(rooms == 0  || rooms == NaN ? "" : parseFloat(rooms.toString()));
+    const type = house ? apartment ? "" : "Appartement" : "Maison";
 
     if (zip === "") { alert("Le code postal est obligatoire"); return }
     
@@ -128,7 +135,7 @@ export const FormSearch = (): JSX.Element => {
       code_postal: zip,
       nom_commune: "",
       lot1_surface_carrez: surface,
-      type_local: "Appartement",
+      type_local: type,
       nombre_pieces_principales: rooms,
       surface_terrain: "",
       longitude: "",
@@ -244,6 +251,20 @@ export const FormSearch = (): JSX.Element => {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
+        <Form.Group className="mb-3">
+          <Form.Check
+            required
+            label="Appartement"
+            feedbackType="invalid"
+            onClick={() => SetHouse(!house)}
+          />
+          <Form.Check
+            required
+            label="Maison"
+            feedbackType="invalid"
+            onClick={() => SetApartment(!apartment)}
+          />
+        </Form.Group>
         <br />
         <Form.Group className="mb-3">
           <Form.Check
@@ -255,7 +276,6 @@ export const FormSearch = (): JSX.Element => {
           />
           <Conditions />
         </Form.Group>
-        <br />
         <Button onClick={() => onFormSubmit()} style={{margin: "20px"}}>
         Lancer votre évaluation
         </Button>
