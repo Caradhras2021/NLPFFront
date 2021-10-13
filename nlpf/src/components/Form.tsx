@@ -306,7 +306,7 @@ export const FormSearch = (): JSX.Element => {
         <div>
         <h4>Prix moyen des biens similaires : <span>{pricing}€</span></h4>
         <h4>Prix moyen au mètre carré : <span>{mean}€</span></h4>
-        {surface != "" && <h4>Estimation du prix de votre bien : <span >{mean * parseFloat(surface.toString())}€</span>
+        {!isNaN(+surface) && <h4>Estimation du prix de votre bien : <span >{mean * parseFloat(surface.toString())}€</span>
           </h4>}
         </div>
         <br/><h3>4 - Parcourez les biens similaires</h3><br/>
