@@ -31,7 +31,7 @@ function CustomMap ({ data, elt }: { data: Acquisition[], elt: Acquisition }): J
   return (
     <div style={{ height: '75vh', width: '100%' }}>
      <GoogleMapReact
-       bootstrapURLKeys={{ key: 'AIzaSyC1zyS-6_FRlCKwMnPPtqj3IYwiJLOJZXE' }}
+       bootstrapURLKeys={{ key: 'SECRET_KEY' }}
        defaultCenter={center}
        defaultZoom={16}
        yesIWantToUseGoogleMapApiInternals
